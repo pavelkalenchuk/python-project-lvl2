@@ -3,30 +3,21 @@
 
 
 import argparse
+from gendiff.engine import generate_diff
 
 
-parser = argparse.ArgumentParser(description="Generate diff")
-parser.add_argument("first_file")
-parser.add_argument("second_file")
-parser.add_argument("-f", "--format", help="set format of output")
+def main():
+    parser = argparse.ArgumentParser(description="Generate diff")
+    parser.add_argument("first_file")
+    parser.add_argument("second_file")
+    parser.add_argument("-f", "--format", help="set format of output")
+
+    args = parser.parse_args()
+    first_file = args.first_file
+    second_file = args.second_file
+
+    print(generate_diff(first_file, second_file))
 
 
-parser.parse_args()
-
-
-""" parser = argparse.ArgumentParser(
-    description="Generate diff"
-)
-parser.add_argument(
-    'integers',
-    metavar='first_file',
-    type=str, nargs='+',
-    help=''
-)
-
-parser.add_argument(
-    'integers',
-    metavar='second_file',
-    type=str, nargs='+',
-    help=''
-) """
+if __name__ == "__main__":
+    main()

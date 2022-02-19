@@ -4,3 +4,5 @@ __pycache__
 dist/
 err
 .vscode/
+temp.py
+test_.py
