@@ -1,0 +1,24 @@
+name: Python CI
+
+on:
+  - push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: |
+          pip install poetry
+          make install
+      - name: Run linter and pytest
+        run: |
+          make check
+      - name: Test & publish code coverage
+        uses: paambaati/codeclimate-action@v2.7.5
+        env:
+          CC_TEST_REPORTER_ID: 9dca56de639485af31705a7898cea57fac042512d6ccc3590e0dc6c220d4c4fc
+        with:
+          coverageCommand: make test-coverage
+          debug: true

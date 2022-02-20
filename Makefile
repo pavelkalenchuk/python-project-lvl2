@@ -21,3 +21,19 @@ lint:
 
 black:
 		poetry run black gendiff
+
+test:
+		poetry run pytest
+
+test-coverage:
+		poetry run pytest --cov=gendiff --cov-report xml
+
+selfcheck:
+		poetry check
+
+check: selfcheck test lint
+
+cov:
+		poetry run pytest --cov=gendiff
+
+.PHONY: install test lint selfcheck check build
