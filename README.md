@@ -9,4 +9,11 @@
 
 
 ### Usage:
+
+## json:
 [![asciicast](https://asciinema.org/a/UPoQbhaT6lb3cNBTAZas7hoTw.svg)](https://asciinema.org/a/UPoQbhaT6lb3cNBTAZas7hoTw)
+
+## yaml:
+[![asciicast](https://asciinema.org/a/an6HONyrnt9bOwc1pTEd9ol69.svg)](https://asciinema.org/a/an6HONyrnt9bOwc1pTEd9ol69)
+
+
