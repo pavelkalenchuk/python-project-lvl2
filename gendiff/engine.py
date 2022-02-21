@@ -1,28 +1,7 @@
-import json
+"""Return defferense betweeт 2 dictionaries."""
 
 
-def replace_bool_to_str(value):
-    NoneType = type(None)
-    if isinstance(value, bool):
-        if value:
-            return "true"
-        return "false"
-    if isinstance(value, NoneType):
-        return "null"
-    return value
-
-
-def decode_json__with_replace_bool_None(first_json, second_json):
-    file1 = json.load(open(first_json))
-    file2 = json.load(open(second_json))
-    return (
-        {k: replace_bool_to_str(v) for k, v in file1.items()},
-        {k: replace_bool_to_str(v) for k, v in file2.items()},
-    )
-
-
-def generate_diff(first_file, second_file):
-    file1, file2 = decode_json__with_replace_bool_None(first_file, second_file)
+def generate_diff(file1, file2):
     all_keys = set(file1) | set(file2)
     result_list = []
     for key in sorted(all_keys):

@@ -36,4 +36,6 @@ check: selfcheck test lint
 cov:
 		poetry run pytest --cov=gendiff
 
-.PHONY: install test lint selfcheck check build
+bpp: build publish package-install
+
+.PHONY: install test lint selfcheck check build publish package-install
