@@ -7,3 +7,5 @@ err
 temp.py
 test_.py
 temp_junk
+.coverage
+coverage.xml
