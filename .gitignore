@@ -9,3 +9,5 @@ test_.py
 temp_junk
 .coverage
 coverage.xml
+try/
+resultation
