@@ -41,26 +41,20 @@ def generate_diff(dict1, dict2):
         for k in shared_keys
         if dict1[k] == dict2[k] and is_both_value_not_dict(dict1[k], dict2[k])
     }
-    same_k_diff_v_dict1 = {
-        k: dict1[k]
-        for k in shared_keys
-        if dict1[k] != dict2[k] and not is_both_value_dict(dict1[k], dict2[k])
-    }
-    same_k_diff_v_dict2 = {
-        k: dict2[k]
-        for k in shared_keys
-        if dict1[k] != dict2[k] and not is_both_value_dict(dict1[k], dict2[k])
-    }
     only_dict1_k = {k: dict1[k] for k in only_dict1_keys}
     only_dict2_k = {k: dict2[k] for k in only_dict2_keys}
+    modified_k = {
+        k: (dict1[k], dict2[k])
+        for k in shared_keys
+        if dict1[k] != dict2[k] and not is_both_value_dict(dict1[k], dict2[k])
+    }
     for k in shared_keys:
         if is_both_value_dict(dict1[k], dict2[k]):
             children[k] = generate_diff(dict1[k], dict2[k])
     diff = {
         "children": children,
         "same_k_and_v": same_k_and_v,
-        "same_k_diff_v_dict1": same_k_diff_v_dict1,
-        "same_k_diff_v_dict2": same_k_diff_v_dict2,
+        "modified_k": modified_k,
         "only_dict1_k": only_dict1_k,
         "only_dict2_k": only_dict2_k,
     }
