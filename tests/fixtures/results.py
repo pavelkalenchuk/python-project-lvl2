@@ -9,8 +9,7 @@ flat_decodes_files = (
 flat_diff = {
     "children": {},
     "same_k_and_v": {'host': 'hexlet.io'},
-    "same_k_diff_v_dict1": {'timeout': 50},
-    "same_k_diff_v_dict2": {'timeout': 20},
+    "modified_k": {'timeout': (50, 20)},
     "only_dict1_k": {"follow": False, 'proxy': '123.234.53.22'},
     "only_dict2_k": {'verbose': True}
 }
@@ -81,8 +80,7 @@ nested_decoded_files = (
 
 nested_diff = {
     "same_k_and_v": {},
-    "same_k_diff_v_dict1": {},
-    "same_k_diff_v_dict2": {},
+    "modified_k": {},
     "only_dict1_k": {
         "group2": {
             "abc": 12345,
@@ -104,22 +102,19 @@ nested_diff = {
     'children':{
         "common": {
             "same_k_and_v": {"setting1": "Value 1"},
-            "same_k_diff_v_dict1": {'setting3': True},
-            "same_k_diff_v_dict2": {"setting3": None},
+            "modified_k": {'setting3': (True, None)},
             "only_dict1_k": {"setting2": 200},
             "only_dict2_k": {"setting4": "blah blah", "follow": False, "setting5": {"key5": "value5"}},
             'children':{
                 'setting6': {
                       "same_k_and_v": {"key": "value",},
-                      "same_k_diff_v_dict1": {},
-                      "same_k_diff_v_dict2": {},
+                      "modified_k": {},
                       "only_dict1_k": {},
                       "only_dict2_k": {"ops": "vops"},
                       'children':{
                         'doge': {
                               "same_k_and_v": {},
-                              "same_k_diff_v_dict1": {"wow": ""},
-                              "same_k_diff_v_dict2": {"wow": "so much"},
+                              "modified_k": {"wow":("", "so much")},
                               "only_dict1_k": {},
                               "only_dict2_k": {},
                               'children':{}
@@ -131,22 +126,10 @@ nested_diff = {
         },
         "group1": {
             "same_k_and_v": {"foo": "bar"},
-            "same_k_diff_v_dict1": {"baz": "bas", "nest": {"key": "value"}},
-            "same_k_diff_v_dict2": {"baz": "bars", "nest": "str"},
+            "modified_k": {"baz": ("bas", "bars"), "nest": ({"key": "value"}, "str")},
             "only_dict1_k": {},
             "only_dict2_k": {},
             'children':{}
         }
     }
 }
-
-
-
-""" a = {
-    "same_k_and_v": {},
-    "same_k_diff_v_dict1": {},
-    "same_k_diff_v_dict2": {},
-    "only_dict1_k": {},
-    "only_dict2_k": {},
-    'children':{}
-} """

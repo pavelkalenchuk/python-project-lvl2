@@ -2,12 +2,12 @@
 
 from itertools import chain
 from gendiff.replaser import replace_bool_none
-from icecream import ic
 
 
 def stringify(value, key_indent):
     len_indent = len(key_indent)
     start_indent = len_indent + 6
+
     def iter_(current_value, depth):
         if not isinstance(current_value, dict):
             return str(current_value)
@@ -21,21 +21,25 @@ def stringify(value, key_indent):
             current_indent = " " * (deep_indent_size - 4)
         lines = []
         for key, val in current_value.items():
-            lines.append(f'{deep_indent}{key}: {iter_(val, deep_indent_size)}')
+            lines.append(f"{deep_indent}{key}: {iter_(val, deep_indent_size)}")
         result = chain("{", lines, [current_indent + "}"])
-        return '\n'.join(result)
+        return "\n".join(result)
 
     return iter_(value, 0)
 
 
 def make_string(k, diff, indent):
     if k in diff["modified_k"]:
-        dict1_diff_string = f'{indent}- {k}: {stringify(diff["modified_k"][k][0], indent)}\n'
-        dict2_diff_string = f'{indent}+ {k}: {stringify(diff["modified_k"][k][1], indent)}'
+        dict1_diff_string = (
+            f'{indent}- {k}: {stringify(diff["modified_k"][k][0], indent)}\n'
+        )
+        dict2_diff_string = (
+            f'{indent}+ {k}: {stringify(diff["modified_k"][k][1], indent)}'
+        )
         string = f"{dict1_diff_string}{dict2_diff_string}"
         return string
     if k in diff["same_k_and_v"]:
-        tab = '  '
+        tab = "  "
         val = diff["same_k_and_v"][k]
     elif k in diff["only_dict1_k"]:
         tab = "- "
@@ -43,23 +47,22 @@ def make_string(k, diff, indent):
     elif k in diff["only_dict2_k"]:
         tab = "+ "
         val = diff["only_dict2_k"][k]
-    string = f'{indent}{tab}{k}: {stringify(val, indent)}'
+    string = f"{indent}{tab}{k}: {stringify(val, indent)}"
     return string
 
 
-
 def format_diff_to_string(diff):
-
     def walk(current_diff, depth):
         current_diff = replace_bool_none(current_diff)
         same_keys = set(chain.from_iterable(current_diff.values()))
         diff_list = []
         if depth == 0:
             deep_indent_size = depth + 2
+            current_indent = " " * depth
         else:
             deep_indent_size = depth + 4
-        deep_indent = ' ' * deep_indent_size
-        current_indent = ' ' * depth
+            current_indent = " " * (depth + 2)
+        deep_indent = " " * deep_indent_size
         for k in sorted(same_keys):
             if k in current_diff["children"]:
                 value = walk(current_diff["children"][k], deep_indent_size)
@@ -67,9 +70,8 @@ def format_diff_to_string(diff):
             else:
                 string = make_string(k, current_diff, deep_indent)
             diff_list.append(string)
-        result = chain('{', diff_list, [current_indent + '}'])
+        result = chain("{", diff_list, [current_indent + "}"])
         diff_result = "\n".join(result)
-        #diff_result = "{\n" + diff_string + "\n}"
         return diff_result
 
     return walk(diff, 0)

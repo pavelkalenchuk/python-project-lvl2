@@ -1,16 +1,4 @@
-""" def generate_diff(file1, file2):
-    all_keys = set(file1) & set(file2)
-    only_file1_keys = set(file1) - set(file2)
-    only_file2_keys = set(file2) - set(file1)
-    diff = {
-        "same_k_and_v": {k: file1[k] for k in all_keys if file1[k] == file2[k]},
-        "same_k_diff_v_file1": {k: file1[k] for k in all_keys if file1[k] != file2[k]},
-        "same_k_diff_v_file2": {k: file2[k] for k in all_keys if file1[k] != file2[k]},
-        "only_file1_k": {k: file1[k] for k in only_file1_keys},
-        "only_file2_k": {k: file2[k] for k in only_file2_keys},
-    }
-    return diff
- """
+"""Module for generate dictionary with defference between 2 dictionary."""
 
 
 def is_dictionary(item):
