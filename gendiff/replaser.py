@@ -22,9 +22,25 @@ def replace_bool_none_to_str(value):
     return value
 
 
-def replace_bool_none(ob):
+def replace_bool_none(diff):
     """Replace bool or None type values in nested dictionaries to str."""
-    if isinstance(ob, collections.abc.Mapping):
-        return {k: replace_bool_none(v) for k, v in ob.items()}
+    if isinstance(diff, collections.abc.Mapping):
+        return {k: replace_bool_none(v) for k, v in diff.items()}
     else:
-        return replace_bool_none_to_str(ob)
+        return replace_bool_none_to_str(diff)
+
+#def replace_str(value)
+
+def add_quotes_to_str(value):
+    if isinstance(value, str):
+        return f'\'{value}\''
+    return value
+
+
+def replace_dict(value):
+    if isinstance(value, dict):
+        return f'[complex value]'
+    return value
+
+def replace_value_to_plain(value):
+    return 
