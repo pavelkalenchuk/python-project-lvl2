@@ -31,16 +31,13 @@ def replace_bool_none(diff):
 
 #def replace_str(value)
 
-def add_quotes_to_str(value):
+def replace_str_dict_bool(value):
+    NoneType = type(None)
+    bool_or_none = {None: "null", True: "true", False: "false"}
+    if isinstance(value, (bool, NoneType)):
+        return bool_or_none[value]
     if isinstance(value, str):
         return f'\'{value}\''
-    return value
-
-
-def replace_dict(value):
     if isinstance(value, dict):
         return f'[complex value]'
     return value
-
-def replace_value_to_plain(value):
-    return 
