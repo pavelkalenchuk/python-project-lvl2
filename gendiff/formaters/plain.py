@@ -29,7 +29,7 @@ def make_string(diff, k, keys):
     return string
 
 
-def format_diff_to_string(diff):
+def format_diff_to_plain(diff):
     def walk(current_diff, keys):
         same_keys = set(chain.from_iterable(current_diff.values()))
         diff_list = []
