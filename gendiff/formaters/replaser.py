@@ -29,7 +29,6 @@ def replace_bool_none(diff):
     else:
         return replace_bool_none_to_str(diff)
 
-#def replace_str(value)
 
 def replace_str_dict_bool(value):
     NoneType = type(None)
@@ -37,7 +36,7 @@ def replace_str_dict_bool(value):
     if isinstance(value, (bool, NoneType)):
         return bool_or_none[value]
     if isinstance(value, str):
-        return f'\'{value}\''
+        return f"'{value}'"
     if isinstance(value, dict):
-        return f'[complex value]'
+        return f'{"[complex value]"}'
     return value

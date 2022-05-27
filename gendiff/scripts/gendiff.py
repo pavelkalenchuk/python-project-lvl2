@@ -5,12 +5,15 @@
 from gendiff.diff import generate_diff
 from gendiff.parser import parse_cli_args
 from gendiff.decode_files import decode_files
-import gendiff.stylish
+from gendiff.formaters.stylish import format_diff_to_string
+from gendiff.formaters.plain import format_diff_to_plain
+
+format = {"stylish": format_diff_to_string, "plain": format_diff_to_plain}
 
 
 def main():
-    formatter = gendiff.stylish.format_diff_to_string
-    print(formatter(generate_diff(*decode_files(*parse_cli_args()))), end="")
+    first_file, second_file, formatter = parse_cli_args()
+    print(format[formatter](generate_diff(*decode_files(first_file, second_file))))
 
 
 if __name__ == "__main__":

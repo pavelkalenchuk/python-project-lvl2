@@ -3,7 +3,7 @@ from gendiff.diff import generate_diff
 from gendiff.decode_files import decode_files
 from tests.fixtures.results import flat_diff
 from tests.fixtures.results import nested_diff
-from gendiff.stylish import format_diff_to_string
+from gendiff.formaters.stylish import format_diff_to_string
 from gendiff.formaters.plain import format_diff_to_plain
 
 

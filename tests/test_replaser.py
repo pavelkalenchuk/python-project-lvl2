@@ -1,5 +1,5 @@
-from gendiff.replaser import replace_bool_none
-from gendiff.replaser import replace_bool_none_to_str
+from gendiff.formaters.replaser import replace_bool_none
+from gendiff.formaters.replaser import replace_bool_none_to_str
 
 string = 'string'
 number = 100

@@ -1,7 +1,7 @@
 """Formater."""
 
 from itertools import chain
-from gendiff.replaser import replace_bool_none
+from gendiff.formaters.replaser import replace_bool_none
 
 
 def stringify(value, key_indent):
