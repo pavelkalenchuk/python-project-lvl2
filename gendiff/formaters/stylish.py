@@ -5,6 +5,7 @@ from gendiff.formaters.replaser import replace_bool_none
 
 
 def stringify(value, key_indent):
+    """Format value to string with indent."""
     len_indent = len(key_indent)
     start_indent = len_indent + 6
 
@@ -29,6 +30,7 @@ def stringify(value, key_indent):
 
 
 def make_string(k, diff, indent):
+    """Make string depend key status."""
     if k in diff["modified_k"]:
         dict1_diff_string = (
             f'{indent}- {k}: {stringify(diff["modified_k"][k][0], indent)}\n'

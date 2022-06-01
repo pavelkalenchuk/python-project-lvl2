@@ -5,6 +5,15 @@ from tests.fixtures.results import flat_diff
 from tests.fixtures.results import nested_diff
 from gendiff.formaters.stylish import format_diff_to_string
 from gendiff.formaters.plain import format_diff_to_plain
+from gendiff.formaters.jsonish import format_diff_to_json
+import json
+
+def is_json(myjson):
+  try:
+    json.loads(myjson)
+  except ValueError as e:
+    return False
+  return True
 
 
 flat_json_1 = 'tests/fixtures/file1.json'
@@ -47,6 +56,11 @@ f = open(nested_plain_result_file, 'r')
 result_plain_nested = f.read()
 f.close()
 
+#diff_nested_json_file = 'tests/fixtures/result_diff_json'
+#f = open(diff_nested_json_file, 'r')
+#result_diff_json = f.read()
+#f.close()
+
 
 
 diff_flat_json = generate_diff(decoded_flat_json_1, decoded_flat_json_2)
@@ -77,3 +91,9 @@ def test_format_diff_to_string():
 def test_format_diff_to_plain():
     assert format_diff_to_plain(diff_flat_json) == result_plain_flat
     assert format_diff_to_plain(diff_nested_json) == result_plain_nested
+
+
+#testing formatter json
+my_json = format_diff_to_json(diff_nested_json)
+def test_format_diff_to_json():
+    assert is_json(my_json) == True

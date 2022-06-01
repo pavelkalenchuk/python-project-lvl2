@@ -1,16 +1,5 @@
 from itertools import chain
-
-
-def replace_str_dict_bool(value):
-    NoneType = type(None)
-    bool_or_none = {None: "null", True: "true", False: "false"}
-    if isinstance(value, (bool, NoneType)):
-        return bool_or_none[value]
-    if isinstance(value, str):
-        return f"'{value}'"
-    if isinstance(value, dict):
-        return f'{"[complex value]"}'
-    return value
+from gendiff.formaters.replaser import replace_str_dict_bool
 
 
 def make_string(diff, k, keys):

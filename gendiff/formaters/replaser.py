@@ -2,7 +2,7 @@
 import collections.abc
 
 
-def replace_bool_none_to_str(value):
+def replace_bool_none_to_str_(value):
     """Replace bool or None type value to str type to str."""
     NoneType = type(None)
     bool_or_none = {None: "null", True: "true", False: "false"}
@@ -17,6 +17,17 @@ def replace_bool_none_to_str(value):
         else:
             replaced_value_2 = value_2
         return replaced_value_1, replaced_value_2
+    if isinstance(value, (bool, NoneType)):
+        return bool_or_none[value]
+    return value
+
+
+def replace_bool_none_to_str(value):
+    """Replace bool or None type value to str type."""
+    NoneType = type(None)
+    bool_or_none = {None: "null", True: "true", False: "false"}
+    if isinstance(value, tuple):
+        return tuple(map(replace_bool_none_to_str, value))
     if isinstance(value, (bool, NoneType)):
         return bool_or_none[value]
     return value
