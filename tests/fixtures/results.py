@@ -1,20 +1,7 @@
 """Results for testing."""
 
 
-flat_decoded_files = (
-    {'host': 'hexlet.io', 'timeout': 50, 'proxy': '123.234.53.22', 'follow': False},
-    {'timeout': 20, 'verbose': True, 'host': 'hexlet.io'}
-)
-
-flat_diff = {
-    "children": {},
-    "same_k_and_v": {'host': 'hexlet.io'},
-    "modified_k": {'timeout': (50, 20)},
-    "only_dict1_k": {"follow": False, 'proxy': '123.234.53.22'},
-    "only_dict2_k": {'verbose': True}
-}
-
-nested_dicoded_file1 = {
+nested_dicoded_file = {
     "common": {
       "setting1": "Value 1",
       "setting2": 200,
@@ -40,43 +27,6 @@ nested_dicoded_file1 = {
       }
     }
   }
-
-nested_decoded_file2 = {
-  "common": {
-    "follow": False,
-    "setting1": "Value 1",
-    "setting3": None,
-    "setting4": "blah blah",
-    "setting5": {
-      "key5": "value5"
-    },
-    "setting6": {
-      "key": "value",
-      "ops": "vops",
-      "doge": {
-        "wow": "so much"
-      }
-    }
-  },
-  "group1": {
-    "foo": "bar",
-    "baz": "bars",
-    "nest": "str"
-  },
-  "group3": {
-    "deep": {
-      "id": {
-        "number": 45
-      }
-    },
-    "fee": 100500
-  }
-}
-
-nested_decoded_files = (
-    nested_dicoded_file1,
-    nested_decoded_file2
-)
 
 nested_diff = {
     "same_k_and_v": {},

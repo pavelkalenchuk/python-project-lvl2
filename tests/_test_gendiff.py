@@ -1,5 +1,5 @@
 from gendiff.diff import make_diff_view
-from gendiff.decode_files import decode_files
+from gendiff.decode_file import decode_files
 from tests.fixtures.results import flat_diff
 from tests.fixtures.results import nested_diff
 from gendiff.formaters.stylish import format_diff_to_string

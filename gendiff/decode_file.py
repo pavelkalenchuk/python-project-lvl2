@@ -14,8 +14,3 @@ def decode_json_yaml(file):
     }
     decoded_file = file_types[extension](open(file))
     return decoded_file
-
-
-def decode_files(first_file, second_file):
-    decoded_files = tuple(map(decode_json_yaml, (first_file, second_file)))
-    return decoded_files

@@ -3,7 +3,7 @@
 from gendiff.formaters.stylish import format_diff_to_string
 from gendiff.formaters.plain import format_diff_to_plain
 from gendiff.formaters.jsonish import format_diff_to_json
-from gendiff.decode_files import decode_json_yaml
+from gendiff.decode_file import decode_json_yaml
 
 
 def is_dictionary(value):
@@ -20,11 +20,11 @@ def is_both_value_dict(value1, value2):
     return False
 
 
-def is_both_value_not_dict(value1, value2):
-    """Check if both values is not a dictionaries."""
+""" def is_both_value_not_dict(value1, value2):
+    """ "Check if both values is not a dictionaries. """"
     if not is_dictionary(value1) and not is_dictionary(value2):
         return True
-    return False
+    return False """
 
 
 def make_diff_view(dict1, dict2):
