@@ -1,4 +1,4 @@
-"""MOdule for decode jsonm yaml, yml files to python dicttionaries"""
+"""Module for decode jsonm yaml, yml files to python dicttionaries"""
 
 import os
 import json

@@ -1,5 +1,7 @@
+import pytest
 from gendiff.formaters.replaser import replace_bool_none
 from gendiff.formaters.replaser import replace_bool_none_to_str
+from gendiff.formaters.replaser import replace_str_dict_bool
 
 string = 'string'
 number = 100
@@ -48,12 +50,36 @@ nested_result = {
     }
 }
 
-def test__replace_bool_to_str():
-    assert replace_bool_none_to_str(None) == 'null'
-    assert replace_bool_none_to_str(False) == 'false'
-    assert replace_bool_none_to_str(True) == 'true'
+values1 = [
+    (None, 'null'),
+    (True, 'true'),
+    (False, 'false'),
+    ((None, False), ('null', 'false')),
+    ((number, False), (number, 'false')),
+    (number, number),
+    (string, string),
+]
+
+values2 = [
+    (None, 'null'),
+    (True, 'true'),
+    (False, 'false'),
+    (number, number),
+    (string, f"'{string}'"),
+    ({'a': 1}, "[complex value]")
+]
+
+
+@pytest.mark.parametrize('value1, replaced_value1', values1)
+def test_replace_bool_to_str(value1, replaced_value1):
+    assert(replace_bool_none_to_str(value1)) == replaced_value1
 
 
 def test_replace_bool_none():
     assert replace_bool_none(flat_dict) == flat_result
     assert replace_bool_none(nested_dict) == nested_result
+
+
+@pytest.mark.parametrize('value2, replaced_value2', values2)
+def test_replace_str_dict_bool(value2, replaced_value2):
+    assert(replace_str_dict_bool(value2)) == replaced_value2

@@ -3,6 +3,7 @@ from gendiff.formaters.replaser import replace_str_dict_bool
 
 
 def make_string(diff, k, keys):
+    """Make string with info about status of key."""
     copy_keys = keys.copy()
     copy_keys.append(k)
     key_path = ".".join(copy_keys)
@@ -19,6 +20,8 @@ def make_string(diff, k, keys):
 
 
 def format_diff_to_plain(diff):
+    """Format diff to plain view."""
+
     def walk(current_diff, keys):
         same_keys = set(chain.from_iterable(current_diff.values()))
         diff_list = []

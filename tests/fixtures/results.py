@@ -1,7 +1,7 @@
 """Results for testing."""
 
 
-flat_decodes_files = (
+flat_decoded_files = (
     {'host': 'hexlet.io', 'timeout': 50, 'proxy': '123.234.53.22', 'follow': False},
     {'timeout': 20, 'verbose': True, 'host': 'hexlet.io'}
 )

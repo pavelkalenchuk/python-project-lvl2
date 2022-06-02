@@ -30,7 +30,7 @@ def stringify(value, key_indent):
 
 
 def make_string(k, diff, indent):
-    """Make string depend key status."""
+    """Make string with info about a key status."""
     if k in diff["modified_k"]:
         dict1_diff_string = (
             f'{indent}- {k}: {stringify(diff["modified_k"][k][0], indent)}\n'
@@ -54,6 +54,8 @@ def make_string(k, diff, indent):
 
 
 def format_diff_to_string(diff):
+    """Format diff to string."""
+
     def walk(current_diff, depth):
         current_diff = replace_bool_none(current_diff)
         same_keys = set(chain.from_iterable(current_diff.values()))

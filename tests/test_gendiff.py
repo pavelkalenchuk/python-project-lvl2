@@ -1,5 +1,4 @@
-from pydoc import plain
-from gendiff.diff import generate_diff
+from gendiff.diff import make_diff_view
 from gendiff.decode_files import decode_files
 from tests.fixtures.results import flat_diff
 from tests.fixtures.results import nested_diff
@@ -56,27 +55,18 @@ f = open(nested_plain_result_file, 'r')
 result_plain_nested = f.read()
 f.close()
 
-#diff_nested_json_file = 'tests/fixtures/result_diff_json'
-#f = open(diff_nested_json_file, 'r')
-#result_diff_json = f.read()
-#f.close()
+diff_flat_json = make_diff_view(decoded_flat_json_1, decoded_flat_json_2)
+diff_nested_json = make_diff_view(decoded_nested_json_1, decoded_nested_json_2)
+
+diff_flat_yaml = make_diff_view(decoded_flat_yaml_1, decoded_flat_yaml_2)
+diff_nested_yaml= make_diff_view(decoded_nested_yaml_1, decoded_nested_yaml_2)
 
 
-
-diff_flat_json = generate_diff(decoded_flat_json_1, decoded_flat_json_2)
-diff_nested_json = generate_diff(decoded_nested_json_1, decoded_nested_json_2)
-
-diff_flat_yaml = generate_diff(decoded_flat_yaml_1, decoded_flat_yaml_2)
-diff_nested_yaml= generate_diff(decoded_nested_yaml_1, decoded_nested_yaml_2)
-
-
-
-
-def test_generate_diff_json():
-    assert generate_diff(decoded_flat_json_1, decoded_flat_json_2) == flat_diff
-    assert generate_diff(decoded_nested_json_1, decoded_nested_json_2) == nested_diff
-    assert generate_diff(decoded_flat_yaml_1, decoded_flat_yaml_2) == flat_diff
-    assert generate_diff(decoded_nested_yaml_1, decoded_nested_yaml_2) == nested_diff
+def test_make_diff_view_json():
+    assert make_diff_view(decoded_flat_json_1, decoded_flat_json_2) == flat_diff
+    assert make_diff_view(decoded_nested_json_1, decoded_nested_json_2) == nested_diff
+    assert make_diff_view(decoded_flat_yaml_1, decoded_flat_yaml_2) == flat_diff
+    assert make_diff_view(decoded_nested_yaml_1, decoded_nested_yaml_2) == nested_diff
 
 
 # testing formatter stylish
