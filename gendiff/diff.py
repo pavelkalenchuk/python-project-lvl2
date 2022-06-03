@@ -13,7 +13,7 @@ def is_dictionary(value):
     return False
 
 
-def is_both_value_dict(value1, value2):
+def is_both_values_dict(value1, value2):
     """Check if values is a 2 dictionaries."""
     if is_dictionary(value1) and is_dictionary(value2):
         return True
@@ -36,14 +36,14 @@ def make_diff_view(dict1, dict2):
     same_k_and_v = {
         k: dict1[k]
         for k in shared_keys
-        if dict1[k] == dict2[k] and is_both_value_not_dict(dict1[k], dict2[k])
+        if dict1[k] == dict2[k] and not is_both_values_dict(dict1[k], dict2[k])
     }
     only_dict1_k = {k: dict1[k] for k in only_dict1_keys}
     only_dict2_k = {k: dict2[k] for k in only_dict2_keys}
     modified_k = {
         k: (dict1[k], dict2[k])
         for k in shared_keys
-        if dict1[k] != dict2[k] and not is_both_value_dict(dict1[k], dict2[k])
+        if dict1[k] != dict2[k] and not is_both_values_dict(dict1[k], dict2[k])
     }
     for k in shared_keys:
         if is_both_value_dict(dict1[k], dict2[k]):
