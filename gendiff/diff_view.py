@@ -1,33 +1,25 @@
 # 'key':
 # 'value':['value', ]  or 'value': ['value1', 'value2']
-# 'type': 'nested', 'flat'
+# 'type': 'dict', 'flat', 'nested'
 # 'status': 'same', 'modified', 'added', 'removed'
 # 'children': [{new_node}]
 
-
-def make_flat_node(key, value, state, type):
-    """Return key descriptor."""
-    return {
-        'key': key,
-        'value': value,
-        'state': state,
-        'type': type
-    }
+def get_type(value):
+    """Return type (flat or dict) of a value."""
+    if (isinstance(value, dict)):
+        return 'dict'
+    return 'flat'
 
 
-def make_nested_node(key, type, children=[]):
-    """Return key descriptor."""
-    return {
-        'key': key,
-        'type': type,
-        'children': children
-    }
+def define_type(value):
+    """Return list of types (flat or dict) of values."""
+    return [get_type(v) for v in value]
 
 
 def define_state(dict1, dict2, shared_keys, key):
     """Return key state."""
-    added = set(dict1) - set(dict2)
-    removed = set(dict2) - set(dict1)
+    added = set(dict2) - set(dict1)
+    removed = set(dict1) - set(dict2)
     modified = set(k for k in shared_keys if dict1[k] != dict2[k]) # same keys diffent values
     same = set(k for k in shared_keys if dict1[k] == dict2[k]) # same keys equal values
     states = {
@@ -38,13 +30,13 @@ def define_state(dict1, dict2, shared_keys, key):
     }
     for k in states:
         if key in states[k]:
-            state = states[k]
+            state = k
             return state
 
 
 def get_value(dict1, dict2, key, state):
     """Return value of a key."""
-    destination = {
+    dict_states = {
         'added': dict2,
         'removed': dict1,
         'modified': (dict1, dict2),
@@ -52,22 +44,10 @@ def get_value(dict1, dict2, key, state):
     }
     if state == 'modified':
         return [
-            destination[state][0][key],
-            destination[state][1][key]
+            dict_states[state][0][key],
+            dict_states[state][1][key]
         ]
-    return [destination[state][key],]
-
-
-def get_type(value):
-    """Return type (flat or nested) of a value."""
-    if (isinstance(value, dict)):
-        return 'dict'
-    return 'flat'
-
-
-def define_type(value):
-    """Return list of types (flat or nested) of values."""
-    return [get_type(v) for v in value]
+    return [dict_states[state][key],]
 
 
 def make_flat_node(dict1, dict2, shared_keys, key):
@@ -76,27 +56,36 @@ def make_flat_node(dict1, dict2, shared_keys, key):
     value = get_value(dict1, dict2, key, state)
     type = define_type(value)
     return {
-        'key': key,
-        'value': value,
-        'state': state,
-        'type': type
+            'value': value,
+            'state': state,
+            'type': type
     }
 
 
-def is_both_values_dict(value1, value2):
+def is_both_values_dicts(value1, value2):
     """Check if values is a 2 dictionaries."""
     if isinstance(value1, dict) and isinstance(value2, dict):
         return True
     return False
 
 
+def make_nested_node(type, children):
+    """Return key descriptor."""
+    return {
+            'type': type,
+            'children': children
+        }
+
+
 def make_diff_view(dict1, dict2):
     """Generate a list with nodes info about defference between 2 dictionaries."""
+    all_keys = set(dict1) | set(dict2)
     shared_keys = set(dict1) & set(dict2)
-    diff_tree = []
-    for key in shared_keys:
-        if is_both_values_dict(dict1, dict2):
-            diff_node = make_nested_node(dict1, dict2, make_diff_view)
-        diff_node = make_flat_node(dict1, dict2, shared_keys, key)
-        diff_tree.append(diff_node)
+    diff_tree = dict()
+    for key in all_keys:
+        if key in shared_keys and is_both_values_dicts(dict1[key], dict2[key]):
+            diff_node = make_nested_node('nested', make_diff_view(dict1[key], dict2[key]))
+        else:
+            diff_node = make_flat_node(dict1, dict2, shared_keys, key)
+        diff_tree[key] = diff_node
     return diff_tree
