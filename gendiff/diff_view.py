@@ -6,8 +6,11 @@
 
 def get_type(value):
     """Return type (flat or dict) of a value."""
-    if (isinstance(value, dict)):
+    NoneType = type(None)
+    if isinstance(value, dict):
         return 'dict'
+    if isinstance(value, (bool, NoneType)):
+        return 'bool_none'
     return 'flat'
 
 
@@ -78,7 +81,7 @@ def make_nested_node(type, children):
 
 
 def make_diff_view(dict1, dict2):
-    """Generate a list with nodes info about defference between 2 dictionaries."""
+    """Return a tree where every node is a dict with info about type and state of a key from both dicts."""
     all_keys = set(dict1) | set(dict2)
     shared_keys = set(dict1) & set(dict2)
     diff_tree = dict()

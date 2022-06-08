@@ -1,156 +1,104 @@
-"""Input data for testing diff_view.py."""
+"""Formatter 'stylish'."""
+
+from itertools import chain
+from icecream import ic
 
 
-# data for testing get_type function
-get_type_data = [
-    ({'key': 1}, 'dict'),
-    ('string', 'flat'),
-    (100, 'flat'), 
-    ([1, 2], 'flat'),
-    ({1}, 'flat'),
-    (('string', ), 'flat'),
-    ('', 'flat')
-]
+def replace_bool_none_to_str(value):
+    """Replace boolean or None type value to str type."""
+    bool_or_none = {None: "null", True: "true", False: "false"}
+    return bool_or_none[value]
 
-# data for testing define_type function
-define_type_data = [
-    ([{'a': 1}, ], ['dict', ]),
-    (['string',], ['flat', ]),
-    ([{'a': 1}, 'string'], ['dict', 'flat']),
-    ([{'a': 1}, {'a': 1}], ['dict', 'dict']),
-    ([1, 1], ['flat', 'flat']),
-    ([], [])
-]
 
-# data for testing define_type, get_value, make_flat_node functions:
-dict1 = {
-    'a': True,
-    'b': "string",
-    'c': 100
-}
+def stringify(value, key_indent):
+    """Format value to string with indent."""
+    len_indent = len(key_indent)
+    start_indent = len_indent + 6
 
-dict2 = {
-    'a': True,
-    'b': 'number',
-    'd': {'a': 1}
-}
+    def iter_(current_value, depth):
+        if not isinstance(current_value, dict):
+            return str(current_value)
+        if depth == 0:
+            deep_indent_size = start_indent
+            deep_indent = " " * deep_indent_size
+            current_indent = " " * (len_indent + 2)
+        else:
+            deep_indent_size = depth + 4
+            deep_indent = " " * deep_indent_size
+            current_indent = " " * (deep_indent_size - 4)
+        lines = []
+        for key, val in current_value.items():
+            lines.append(f"{deep_indent}{key}: {iter_(val, deep_indent_size)}")
+        result = chain("{", lines, [current_indent + "}"])
+        return "\n".join(result)
 
-all_keys = {'a', 'b', 'c', 'd'}
+    return iter_(value, 0)
 
-shared_keys = {'a', 'b'}
 
-# data for testing define_type functions:
-define_state_data = [
-    ('a', 'same'),
-    ('b', 'modified'),
-    ('c', 'removed'),
-    ('d', 'added')
-]
+def replace_value(value, type, indent):
+    if type == 'dict':
+        return stringify(value, indent)
+    if type == 'bool_none':
+        return replace_bool_none_to_str(value)
+    return value
 
-# data for testing get_value function:
-get_value_data = [
-    ('a', 'same', [True, ]),
-    ('b', 'modified', ['string', 'number']),
-    ('c', 'removed', [100, ]),
-    ('d', 'added', [{'a': 1}])
-]
 
-# data for testing make flat node:
-make_flat_node_data = [
-    ('a', {
-            'value': [True, ],
-            'state': 'same',
-            'type': ['flat', ]
-            }
-    ),
-    ('b', {
-            'value': ['string', 'number'],
-            'state': 'modified',
-            'type': ['flat', 'flat']
-            }
-    ),
-    ('c', {
-            'value': [100, ],
-            'state': 'removed',
-            'type': ['flat', ]
-            }
-    ),
-    ('d', {
-            'value': [{'a': 1}, ],
-            'state': 'added',
-            'type': ['dict', ]
-            }
-    ),
-]
 
-# data for testing is_both_value_dicts:
-is_both_values_dicts_data = [
-    ({'a': 1}, {'b': 2}, True),
-    ({'a': 1}, 'string', False),
-    ({100, }, {'b': 2}, False),
-    ({1, }, ('string', ), False)
-]
-
-# nested data for make_diff_view function
-nested_dict1 = {
-    "common": {
-      "setting1": "Value 1",
-      "setting2": 200,
-      "setting3": True,
-      "setting6": {
-        "key": "value",
-        "doge": {
-          "wow": ""
-        }
-      }
-    },
-    "group1": {
-      "baz": "bas",
-      "foo": "bar",
-      "nest": {
-        "key": "value"
-      }
-    },
-    "group2": {
-      "abc": 12345,
-      "deep": {
-        "id": 45
-      }
+def make_string(key, description, indent):
+    """"Return string with info about a key state."""
+    value = description['value']
+    type = description['type']
+    state = description['state']
+    replaced_value = [replace_value(v, t, indent) for v, t in zip(value, type)]
+    tabulators = {
+        'added': ['+ '],
+        'removed': ['- '],
+        'modified': ['- ', '+ '],
+        'same': ['  ']
     }
-  }
+    tab = tabulators[state]
+    if state == 'modified':
+        string_val1 = (
+            f'{indent}{tab[0]}{key}: {replaced_value[0]}\n'
+        )
+        string_val2 = (
+            f'{indent}{tab[1]}{key}: {replaced_value[1]}'
+        )
+        return f"{string_val1}{string_val2}"
+    return f"{indent}{tab}{k}: {replaced_value[0]}"
 
 
-nested_dict2 = {
-  "common": {
-    "follow": False,
-    "setting1": "Value 1",
-    "setting3": None,
-    "setting4": "blah blah",
-    "setting5": {
-      "key5": "value5"
-    },
-    "setting6": {
-      "key": "value",
-      "ops": "vops",
-      "doge": {
-        "wow": "so much"
-      }
-    }
-  },
-  "group1": {
-    "foo": "bar",
-    "baz": "bars",
-    "nest": "str"
-  },
-  "group3": {
-    "deep": {
-      "id": {
-        "number": 45
-      }
-    },
-    "fee": 100500
-  }
-}
+def format_diff_to_string(diff):
+    """Return string with formatted diff."""
+
+    def walk(diff, depth):
+        all_keys = set(diff.keys())
+        diff_list = []
+        if depth == 0:
+            deep_indent_size = depth + 2
+            current_indent = " " * depth
+        else:
+            deep_indent_size = depth + 4
+            current_indent = " " * (depth + 2)
+        deep_indent = " " * deep_indent_size
+        for k in sorted(all_keys):
+            if diff[k]['type'] == 'nested':
+                value = walk(diff[k]['children'], deep_indent_size)
+                string = f'  {deep_indent}{k}: {value}'
+            else:
+                string = make_string(k, diff[k], deep_indent)
+            diff_list.append(string)
+        result = chain("{", diff_list, [current_indent + "}"])
+        diff_result = "\n".join(result)
+        return diff_result
+
+    return walk(diff,0)
+
+
+
+
+
+
 
 nested_diff = {
     'common':{
@@ -246,3 +194,5 @@ nested_diff = {
             'state': 'added'
     }
 }
+ic(format_diff_to_string(nested_diff))
+

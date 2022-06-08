@@ -1,5 +1,5 @@
 from itertools import chain
-from gendiff.formaters.replaser import replace_str_dict_bool
+from gendiff.formatters.replaser import replace_str_dict_bool
 
 
 def make_string(diff, k, keys):
