@@ -1,14 +1,9 @@
 """Formatter 'stylish'."""
 
 from itertools import chain
+
+from gendiff.formatters.replaser import replace_bool_none_to_str
 from icecream import ic
-
-
-def replace_bool_none_to_str(value):
-    """Replace boolean or None type value to str type."""
-    bool_or_none = {None: "null", True: "true", False: "false"}
-    return bool_or_none[value]
-
 
 def stringify(value, key_indent):
     """Format value to string with indent."""
@@ -51,10 +46,10 @@ def make_string(key, description, indent):
     state = description['state']
     replaced_value = [replace_value(v, t, indent) for v, t in zip(value, type)]
     tabulators = {
-        'added': ['+ '],
-        'removed': ['- '],
+        'added': ['+ ', ],
+        'removed': ['- ', ],
         'modified': ['- ', '+ '],
-        'same': ['  ']
+        'same': ['  ', ]
     }
     tab = tabulators[state]
     if state == 'modified':
@@ -65,7 +60,7 @@ def make_string(key, description, indent):
             f'{indent}{tab[1]}{key}: {replaced_value[1]}'
         )
         return f"{string_val1}{string_val2}"
-    return f"{indent}{tab}{k}: {replaced_value[0]}"
+    return f"{indent}{tab[0]}{key}: {replaced_value[0]}"
 
 
 def format_diff_to_string(diff):
@@ -194,5 +189,5 @@ nested_diff = {
             'state': 'added'
     }
 }
-ic(format_diff_to_string(nested_diff))
+print(format_diff_to_string(nested_diff))
 

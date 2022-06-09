@@ -4,21 +4,8 @@ import collections.abc
 
 def replace_bool_none_to_str(value):
     """Replace boolean or None type value to str type."""
-    NoneType = type(None)
     bool_or_none = {None: "null", True: "true", False: "false"}
-    if isinstance(value, tuple):
-        return tuple(map(replace_bool_none_to_str, value))
-    if isinstance(value, (bool, NoneType)):
-        return bool_or_none[value]
-    return value
-
-
-def replace_bool_none(diff):
-    """Replace boolean or None type values in nested dictionaries to str."""
-    if isinstance(diff, collections.abc.Mapping):
-        return {k: replace_bool_none(v) for k, v in diff.items()}
-    else:
-        return replace_bool_none_to_str(diff)
+    return bool_or_none[value]
 
 
 def replace_str_dict_bool(value):

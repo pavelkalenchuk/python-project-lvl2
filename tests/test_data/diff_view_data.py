@@ -9,7 +9,10 @@ get_type_data = [
     ([1, 2], 'flat'),
     ({1}, 'flat'),
     (('string', ), 'flat'),
-    ('', 'flat')
+    ('', 'flat'),
+    (True, 'bool_none'),
+    (False, 'bool_none'),
+    (None, 'bool_none')
 ]
 
 # data for testing define_type function
@@ -60,7 +63,7 @@ make_flat_node_data = [
     ('a', {
             'value': [True, ],
             'state': 'same',
-            'type': ['flat', ]
+            'type': ['bool_none', ]
             }
     ),
     ('b', {
