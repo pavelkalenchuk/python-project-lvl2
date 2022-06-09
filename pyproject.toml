@@ -17,6 +17,7 @@ flake8-black = "^0.2.4"
 icecream = "^2.1.1"
 pytest = "^7.0.1"
 pytest-cov = "^3.0.0"
+pytest-flake8 = "^1.1.1"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
