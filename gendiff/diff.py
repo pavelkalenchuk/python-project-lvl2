@@ -1,4 +1,4 @@
-"""Module for generate dictionary with info about defference between 2 dictionaries."""
+"""Module generate diff between 2 files in user's choice format."""
 
 from gendiff.diff_view import make_diff_view
 from gendiff.formatters.stylish import format_diff_to_string
@@ -8,6 +8,7 @@ from gendiff.decode_file import decode_json_yaml
 
 
 def generate_diff(file_path1, file_path2, format_name="stylish"):
+    """return diff depend formatter."""
     formatters = {
         "stylish": format_diff_to_string,
         "plain": format_diff_to_plain,
