@@ -1,31 +1,17 @@
 """Input data for testing diff_view.py."""
 
-
-# data for testing get_type function
-get_type_data = [
-    ({'key': 1}, 'dict'),
-    ('string', 'flat'),
-    (100, 'flat'), 
-    ([1, 2], 'flat'),
-    ({1}, 'flat'),
-    (('string', ), 'flat'),
-    ('', 'flat'),
-    (True, 'bool_none'),
-    (False, 'bool_none'),
-    (None, 'bool_none')
-]
-
 # data for testing define_type function
 define_type_data = [
     ([{'a': 1}, ], ['dict', ]),
-    (['string',], ['flat', ]),
-    ([{'a': 1}, 'string'], ['dict', 'flat']),
+    (['string',], ['str', ]),
+    ([{'a': 1}, 'string'], ['dict', 'str']),
     ([{'a': 1}, {'a': 1}], ['dict', 'dict']),
-    ([1, 1], ['flat', 'flat']),
+    ([1, 1], ['int', 'int']),
+    ([1, None], ['int', 'NoneType']),
     ([], [])
 ]
 
-# data for testing define_type, get_value, make_flat_node functions:
+# data for testing define_type, make_flat_node functions:
 dict1 = {
     'a': True,
     'b': "string",
@@ -34,7 +20,7 @@ dict1 = {
 
 dict2 = {
     'a': True,
-    'b': 'number',
+    'b': None,
     'd': {'a': 1}
 }
 
@@ -63,19 +49,19 @@ make_flat_node_data = [
     ('a', {
             'value': [True, ],
             'state': 'same',
-            'type': ['bool_none', ]
+            'type': ['bool', ]
             }
     ),
     ('b', {
-            'value': ['string', 'number'],
+            'value': ['string', None],
             'state': 'modified',
-            'type': ['flat', 'flat']
+            'type': ['str', 'NoneType']
             }
     ),
     ('c', {
             'value': [100, ],
             'state': 'removed',
-            'type': ['flat', ]
+            'type': ['int', ]
             }
     ),
     ('d', {
@@ -86,13 +72,15 @@ make_flat_node_data = [
     ),
 ]
 
-# data for testing is_both_value_dicts:
+# data for testing is_both_value_dicts function:
 is_both_values_dicts_data = [
     ({'a': 1}, {'b': 2}, True),
     ({'a': 1}, 'string', False),
     ({100, }, {'b': 2}, False),
     ({1, }, ('string', ), False)
 ]
+
+# data for testing make nested_node
 
 # nested data for make_diff_view function
 nested_dict1 = {
@@ -157,31 +145,31 @@ nested_dict2 = {
 
 nested_diff = {
     'common':{
-        'type': 'nested',
+        'state': 'nested',
         'children': {
                 'follow': {
                     'value': [False,],
-                    'type': ['bool_none',],
+                    'type': ['bool',],
                     'state': 'added'
                 },
                 'setting1':{
                     'value': ['Value 1', ],
-                    'type': ['flat' , ],
+                    'type': ['str' , ],
                     'state': 'same'
                 },
                 'setting2': {
                     'value': [200, ],
-                    'type': ['flat', ],
+                    'type': ['int', ],
                     'state': 'removed'
                 },
                 'setting3': {
                     'value': [True, None],
-                    'type': ['bool_none', 'bool_none'],
+                    'type': ['bool', 'NoneType'],
                     'state': 'modified' 
                 },
                 'setting4': {
                     'value': ['blah blah', ],
-                    'type': ['flat', ],
+                    'type': ['str', ],
                     'state':'added'
 
                 },
@@ -192,24 +180,24 @@ nested_diff = {
                     
                 },
                 'setting6': {
-                        'type': 'nested',
+                        'state': 'nested',
                         'children': {
                             'key': {
                                 'value': ['value', ],
-                                'type': ['flat', ],
+                                'type': ['str', ],
                                 'state':'same'
                             },
                             'ops': {
                                 'value': ['vops', ],
-                                'type': ['flat', ],
+                                'type': ['str', ],
                                 'state':'added'
                             },
                             'doge': {
-                                'type': 'nested',
+                                'state': 'nested',
                                 'children': {
                                     'wow':{
                                         'value': ['', 'so much'],
-                                        'type': ['flat', 'flat'],
+                                        'type': ['str', 'str'],
                                         'state': 'modified'
                                     }
                                 }
@@ -219,21 +207,21 @@ nested_diff = {
         },
     },
     'group1': {
-        'type': 'nested',
+        'state': 'nested',
         'children': {
             'baz': {
                 'value': ['bas', 'bars'],
-                'type': ['flat', 'flat'],
+                'type': ['str', 'str'],
                 'state': 'modified'
             },
             'foo': {
                 'value': ['bar'],
-                'type': ['flat', ],
+                'type': ['str', ],
                 'state': 'same'
             },
             'nest':{
                 'value': [{"key": "value"}, 'str'],
-                'type': ['dict', 'flat'],
+                'type': ['dict', 'str'],
                 'state': 'modified'
             }
         }

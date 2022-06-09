@@ -1,2 +1,1 @@
 """Package CLI tool."""
-

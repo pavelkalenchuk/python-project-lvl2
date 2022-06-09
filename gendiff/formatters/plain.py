@@ -1,41 +1,51 @@
-from itertools import chain
-from gendiff.formatters.replaser import replace_str_dict_bool
+from gendiff.formatters.replaser import replace_bool_none_to_str
 
 
-def make_string(diff, k, keys):
-    """Make string with info about status of key."""
+def replace_value(value, type):
+    if type == "bool" or type == "NoneType":
+        return replace_bool_none_to_str(value)
+    replaced_value = {"dict": "[complex value]", "str": f"'{value}'"}
+    return replaced_value.get(type, value)
+
+
+def make_string(key, key_description, keys):
     copy_keys = keys.copy()
-    copy_keys.append(k)
+    copy_keys.append(key)
     key_path = ".".join(copy_keys)
-    key = f"'{key_path}'"
-    if k in diff["modified_k"]:
-        value1, value2 = tuple(map(replace_str_dict_bool, diff["modified_k"][k]))
-        string = f"Property {key} was updated. From {value1} to {value2}"
-    elif k in diff["only_dict1_k"]:
-        string = f"Property {key} was removed"
-    elif k in diff["only_dict2_k"]:
-        value = replace_str_dict_bool(diff["only_dict2_k"][k])
-        string = f"Property {key} was added with value: {value}"
-    return string
+    full_key = f"'{key_path}'"
+    value = key_description["value"]
+    type = key_description["type"]
+    state = key_description["state"]
+    replaced_value = [replace_value(v, t) for v, t in zip(value, type)]
+    if state == "modified":
+        return (
+            f"Property {full_key} was updated. "
+            f"From {replaced_value[0]} to {replaced_value[1]}"
+        )
+    string = {
+        "added": f"Property {full_key} was added with value: {replaced_value[0]}",
+        "removed": f"Property {full_key} was removed",
+    }
+    return string[state]
 
 
 def format_diff_to_plain(diff):
-    """Format diff to plain view."""
+    """Return diff in  plain view."""
 
     def walk(current_diff, keys):
-        same_keys = set(chain.from_iterable(current_diff.values()))
+        all_keys = set(current_diff.keys())
         diff_list = []
-        for k in sorted(same_keys):
-            if k in current_diff["same_k_and_v"]:
+        for key in sorted(all_keys):
+            key_state = current_diff[key].get("state")
+            if key_state == "same":
                 continue
-            if k in current_diff["children"]:
+            if key_state == "nested":
                 copy_keys = keys.copy()
-                copy_keys.append(k)
-                string = walk(current_diff["children"][k], copy_keys)
+                copy_keys.append(key)
+                string = walk(current_diff[key]["children"], copy_keys)
             else:
-                string = make_string(current_diff, k, keys)
+                string = make_string(key, current_diff[key], keys)
             diff_list.append(string)
-        diff_result = "\n".join(diff_list)
-        return diff_result
+        return "\n".join(diff_list)
 
     return walk(diff, [])
