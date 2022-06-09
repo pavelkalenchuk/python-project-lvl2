@@ -7,7 +7,7 @@ from gendiff.formatters.jsonish import format_diff_to_json
 from gendiff.decode_file import decode_json_yaml
 
 
-def generate_diff(file_path1, file_path2, format_name='stylish'):
+def generate_diff(file_path1, file_path2, format_name="stylish"):
     formatters = {
         "stylish": format_diff_to_string,
         "plain": format_diff_to_plain,
