@@ -10,10 +10,12 @@
 
 ### Usage:
 
-## json:
-[![asciicast](https://asciinema.org/a/UPoQbhaT6lb3cNBTAZas7hoTw.svg)](https://asciinema.org/a/UPoQbhaT6lb3cNBTAZas7hoTw)
+## stylish formatter(default formatter):
+[![asciicast](https://asciinema.org/a/OsTHFFU0mKEqplxgtAwgI1tYQ.svg)](https://asciinema.org/a/OsTHFFU0mKEqplxgtAwgI1tYQ)
 
-## yaml:
-[![asciicast](https://asciinema.org/a/an6HONyrnt9bOwc1pTEd9ol69.svg)](https://asciinema.org/a/an6HONyrnt9bOwc1pTEd9ol69)
+## plain formatter:
+[![asciicast](https://asciinema.org/a/EP2utRC3lD0Y3IEwN9kLnmrkx.svg)](https://asciinema.org/a/EP2utRC3lD0Y3IEwN9kLnmrkx)
 
+## json formatter:
+[![asciicast](https://asciinema.org/a/usb8X130k34Gy06UxzBlY5L1Y.svg)](https://asciinema.org/a/usb8X130k34Gy06UxzBlY5L1Y)
 
