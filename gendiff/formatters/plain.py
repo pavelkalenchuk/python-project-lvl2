@@ -1,11 +1,11 @@
 from gendiff.formatters.replaser import replace_bool_none_to_str
 
 
-def replace_value(value, type):
-    if type == "bool" or type == "NoneType":
+def replace_value(value, type_name):
+    if type_name == "bool" or type_name == "NoneType":
         return replace_bool_none_to_str(value)
     replaced_value = {"dict": "[complex value]", "str": f"'{value}'"}
-    return replaced_value.get(type, value)
+    return replaced_value.get(type_name, value)
 
 
 def make_string(key, key_description, keys):
@@ -13,10 +13,11 @@ def make_string(key, key_description, keys):
     copy_keys.append(key)
     key_path = ".".join(copy_keys)
     full_key = f"'{key_path}'"
-    value = key_description["value"]
-    type = key_description["type"]
     state = key_description["state"]
-    replaced_value = [replace_value(v, t) for v, t in zip(value, type)]
+    value = key_description["value"]
+    type_name = [type(v).__name__ for v in value]
+
+    replaced_value = [replace_value(v, t) for v, t in zip(value, type_name)]
     if state == "modified":
         return (
             f"Property {full_key} was updated. "
@@ -29,8 +30,8 @@ def make_string(key, key_description, keys):
     return string[state]
 
 
-def format_diff_to_plain(diff):
-    """Return diff in  plain view."""
+def format(diff):
+    """Return diff in plain view."""
 
     def walk(current_diff, keys):
         all_keys = set(current_diff.keys())
@@ -42,7 +43,7 @@ def format_diff_to_plain(diff):
             if key_state == "nested":
                 copy_keys = keys.copy()
                 copy_keys.append(key)
-                string = walk(current_diff[key]["children"], copy_keys)
+                string = walk(current_diff[key]["value"], copy_keys)
             else:
                 string = make_string(key, current_diff[key], keys)
             diff_list.append(string)

@@ -4,7 +4,7 @@
 import argparse
 
 
-def parse_cli_args():
+def parse_args():
     parser = argparse.ArgumentParser(
         description="Compares two configuration files and shows a difference."
     )

@@ -33,6 +33,8 @@ selfcheck:
 
 check: selfcheck test lint
 
+bpp: build publish package-install
+
 cov:
 		poetry run pytest --cov=gendiff
 

@@ -30,20 +30,20 @@ def stringify(value, key_indent):
     return iter_(value, 0)
 
 
-def replace_value(value, type, indent):
-    if type == "dict":
+def replace_value(value, type_name, indent):
+    if type_name == "dict":
         return stringify(value, indent)
-    if type == "bool" or type == "NoneType":
+    if type_name == "bool" or type_name == "NoneType":
         return replace_bool_none_to_str(value)
     return value
 
 
-def make_string(key, description, indent):
+def make_string(key, key_description, indent):
     """ "Return string with info about a key state."""
-    value = description["value"]
-    type = description["type"]
-    state = description["state"]
-    replaced_value = [replace_value(v, t, indent) for v, t in zip(value, type)]
+    value = key_description["value"]
+    state = key_description["state"]
+    type_name = [type(v).__name__ for v in value]
+    replaced_value = [replace_value(v, t, indent) for v, t in zip(value, type_name)]
     tabulators = {
         "added": [
             "+ ",
@@ -64,7 +64,7 @@ def make_string(key, description, indent):
     return f"{indent}{tab[0]}{key}: {replaced_value[0]}"
 
 
-def format_diff_to_string(diff):
+def format(diff):
     """Return string with formatted diff."""
 
     def walk(diff, depth):
@@ -80,7 +80,7 @@ def format_diff_to_string(diff):
         for k in sorted(all_keys):
             state = diff[k].get("state")
             if state == "nested":
-                value = walk(diff[k]["children"], deep_indent_size)
+                value = walk(diff[k]["value"], deep_indent_size)
                 string = f"  {deep_indent}{k}: {value}"
             else:
                 string = make_string(k, diff[k], deep_indent)

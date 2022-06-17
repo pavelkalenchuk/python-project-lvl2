@@ -3,11 +3,11 @@
 
 
 from gendiff.diff import generate_diff
-from gendiff.parser import parse_cli_args
+from gendiff.cli import parse_args
 
 
 def main():
-    first_file, second_file, format_name = parse_cli_args()
+    first_file, second_file, format_name = parse_args()
     print(generate_diff(first_file, second_file, format_name))
 
 

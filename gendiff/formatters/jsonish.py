@@ -3,6 +3,6 @@
 import json
 
 
-def format_diff_to_json(diff):
+def format(diff):
     """Format diff to json format."""
-    return json.dumps(diff, indent=4)
+    return json.dumps(diff, indent=4, sort_keys=True)

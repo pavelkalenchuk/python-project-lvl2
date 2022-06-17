@@ -1,29 +1,8 @@
 """Input data for testing diff_view.py."""
 
-# data for testing define_type function
-define_type_data = [
-    (
-        [
-            {"a": 1},
-        ],
-        [
-            "dict",
-        ],
-    ),
-    (
-        [
-            "string",
-        ],
-        [
-            "str",
-        ],
-    ),
-    ([{"a": 1}, "string"], ["dict", "str"]),
-    ([{"a": 1}, {"a": 1}], ["dict", "dict"]),
-    ([1, 1], ["int", "int"]),
-    ([1, None], ["int", "NoneType"]),
-    ([], []),
-]
+
+
+# data for testing make node info function:
 
 # data for testing define_type, make_flat_node functions:
 dict1 = {"a": True, "b": "string", "c": 100}
@@ -34,31 +13,7 @@ all_keys = {"a", "b", "c", "d"}
 
 shared_keys = {"a", "b"}
 
-# data for testing define_type functions:
-define_state_data = [("a", "same"), ("b", "modified"), ("c", "removed"), ("d", "added")]
-
-# data for testing get_value function:
-get_value_data = [
-    (
-        "a",
-        "same",
-        [
-            True,
-        ],
-    ),
-    ("b", "modified", ["string", "number"]),
-    (
-        "c",
-        "removed",
-        [
-            100,
-        ],
-    ),
-    ("d", "added", [{"a": 1}]),
-]
-
-# data for testing make flat node:
-make_flat_node_data = [
+make_node_info_data = [
     (
         "a",
         {
@@ -66,14 +21,11 @@ make_flat_node_data = [
                 True,
             ],
             "state": "same",
-            "type": [
-                "bool",
-            ],
         },
     ),
     (
         "b",
-        {"value": ["string", None], "state": "modified", "type": ["str", "NoneType"]},
+        {"value": ["string", None], "state": "modified",},
     ),
     (
         "c",
@@ -82,9 +34,6 @@ make_flat_node_data = [
                 100,
             ],
             "state": "removed",
-            "type": [
-                "int",
-            ],
         },
     ),
     (
@@ -94,9 +43,6 @@ make_flat_node_data = [
                 {"a": 1},
             ],
             "state": "added",
-            "type": [
-                "dict",
-            ],
         },
     ),
 ]
@@ -152,130 +98,80 @@ nested_dict2 = {
 nested_diff = {
     "common": {
         "state": "nested",
-        "children": {
+        "value": {
             "follow": {
-                "value": [
-                    False,
-                ],
-                "type": [
-                    "bool",
-                ],
                 "state": "added",
+                "value": [False, ]
             },
             "setting1": {
-                "value": [
-                    "Value 1",
-                ],
-                "type": [
-                    "str",
-                ],
                 "state": "same",
+                "value": ["Value 1", ]
             },
             "setting2": {
-                "value": [
-                    200,
-                ],
-                "type": [
-                    "int",
-                ],
                 "state": "removed",
+                "value": [200, ]
             },
             "setting3": {
-                "value": [True, None],
-                "type": ["bool", "NoneType"],
                 "state": "modified",
+                "value": [True, None]
             },
             "setting4": {
-                "value": [
-                    "blah blah",
-                ],
-                "type": [
-                    "str",
-                ],
                 "state": "added",
+                "value": ["blah blah", ]
             },
             "setting5": {
-                "value": [
-                    {"key5": "value5"},
-                ],
-                "type": [
-                    "dict",
-                ],
                 "state": "added",
+                "value": [{"key5": "value5"}, ]
             },
             "setting6": {
                 "state": "nested",
-                "children": {
+                "value": {
                     "key": {
-                        "value": [
-                            "value",
-                        ],
-                        "type": [
-                            "str",
-                        ],
                         "state": "same",
+                        "value": ["value", ]
                     },
                     "ops": {
-                        "value": [
-                            "vops",
-                        ],
-                        "type": [
-                            "str",
-                        ],
                         "state": "added",
+                        "value": ["vops", ]
                     },
                     "doge": {
                         "state": "nested",
-                        "children": {
+                        "value": {
                             "wow": {
-                                "value": ["", "so much"],
-                                "type": ["str", "str"],
                                 "state": "modified",
-                            }
+                                "value": ["", "so much"]
+                            },
                         },
                     },
                 },
             },
-        },
+
+
+        }
     },
     "group1": {
         "state": "nested",
-        "children": {
+        "value": {
             "baz": {
-                "value": ["bas", "bars"],
-                "type": ["str", "str"],
                 "state": "modified",
+                "value": ["bas", "bars"]
             },
             "foo": {
-                "value": ["bar"],
-                "type": [
-                    "str",
-                ],
                 "state": "same",
+                "value": ["bar", ]
             },
             "nest": {
-                "value": [{"key": "value"}, "str"],
-                "type": ["dict", "str"],
                 "state": "modified",
+                "value": [{"key": "value"}, "str"]
             },
         },
     },
     "group2": {
-        "value": [
-            {"abc": 12345, "deep": {"id": 45}},
-        ],
-        "type": [
-            "dict",
-        ],
         "state": "removed",
+        "value": [{"abc": 12345, "deep": {"id": 45}}]
     },
-    "group3": {
-        "value": [
-            {"deep": {"id": {"number": 45}}, "fee": 100500},
-        ],
-        "type": [
-            "dict",
-        ],
+    "group3":{
         "state": "added",
-    },
+        "value": [{"deep": {"id": {"number": 45}}, "fee": 100500}]
+    }
 }

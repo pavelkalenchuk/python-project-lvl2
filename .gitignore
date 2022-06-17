@@ -9,6 +9,6 @@ test_.py
 temp_junk
 .coverage
 coverage.xml
-try/
+trash/
 resultation
 lint_err
