@@ -1,7 +1,10 @@
+"""Module present diff in plain format"""
+
 from gendiff.formatters.replaser import replace_bool_none_to_str
 
 
 def replace_value(value, type_name):
+    """Return replaced boolean,None type, dict value to str type."""
     if type_name == "bool" or type_name == "NoneType":
         return replace_bool_none_to_str(value)
     replaced_value = {"dict": "[complex value]", "str": f"'{value}'"}
@@ -9,6 +12,7 @@ def replace_value(value, type_name):
 
 
 def make_string(key, key_description, keys):
+    """Return string with property name and state of the property."""
     copy_keys = keys.copy()
     copy_keys.append(key)
     key_path = ".".join(copy_keys)
@@ -31,7 +35,7 @@ def make_string(key, key_description, keys):
 
 
 def format(diff):
-    """Return diff in plain view."""
+    """Return string in plain format."""
 
     def walk(current_diff, keys):
         all_keys = set(current_diff.keys())

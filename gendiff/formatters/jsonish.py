@@ -4,5 +4,5 @@ import json
 
 
 def format(diff):
-    """Format diff to json format."""
+    """Return string in json fromat."""
     return json.dumps(diff, indent=4, sort_keys=True)

@@ -1,3 +1,5 @@
+import pytest
+
 from gendiff.diff import generate_diff
 from tests.test_data.formatters_data import result_str_stylish, result_str_plain, result_str_jsonish
 
@@ -23,3 +25,7 @@ input_data = [
     (yaml1, json2, 'plain', result_str_plain),
     (json1, yml2, 'json', result_str_jsonish),
 ]
+
+@pytest.mark.parametrize("file1, file2, formatter, result", input_data)
+def test_generate_diff(file1, file2, formatter, result):
+    assert generate_diff(file1, file2, formatter) == result

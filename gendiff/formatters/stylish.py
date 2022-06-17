@@ -1,4 +1,4 @@
-"""Formatter 'stylish'."""
+"""Module present diff in stylish format."""
 
 from itertools import chain
 
@@ -6,7 +6,7 @@ from gendiff.formatters.replaser import replace_bool_none_to_str
 
 
 def stringify(value, key_indent):
-    """Format value to string with indent."""
+    """Return string with indent strigified from a dict."""
     len_indent = len(key_indent)
     start_indent = len_indent + 6
 
@@ -31,6 +31,7 @@ def stringify(value, key_indent):
 
 
 def replace_value(value, type_name, indent):
+    """Return replaced value."""
     if type_name == "dict":
         return stringify(value, indent)
     if type_name == "bool" or type_name == "NoneType":
@@ -39,7 +40,7 @@ def replace_value(value, type_name, indent):
 
 
 def make_string(key, key_description, indent):
-    """ "Return string with info about a key state."""
+    """Return string with property name and state of the property."""
     value = key_description["value"]
     state = key_description["state"]
     type_name = [type(v).__name__ for v in value]
@@ -65,7 +66,7 @@ def make_string(key, key_description, indent):
 
 
 def format(diff):
-    """Return string with formatted diff."""
+    """Return string in stylish format."""
 
     def walk(diff, depth):
         all_keys = set(diff.keys())

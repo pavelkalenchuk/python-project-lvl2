@@ -5,6 +5,7 @@ import argparse
 
 
 def parse_args():
+    """Return filenames, formatter name from command line."""
     parser = argparse.ArgumentParser(
         description="Compares two configuration files and shows a difference."
     )

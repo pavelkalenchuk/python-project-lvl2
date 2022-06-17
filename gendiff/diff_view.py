@@ -35,8 +35,10 @@ def make_node_info(dict1, dict2, key, shared_keys):
 
 
 def make_diff_view(dict1, dict2):
-    """Return a tree where every node is a dict with info about
-    type and state of a key from both dicts."""
+    """
+    Return a tree where every node is a dict
+    with info about state of a key from 2 dicts.
+    """
     all_keys = set(dict1) | set(dict2)
     shared_keys = set(dict1) & set(dict2)
     diff_tree = dict()
