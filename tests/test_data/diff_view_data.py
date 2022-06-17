@@ -1,7 +1,6 @@
 """Input data for testing diff_view.py."""
 
 
-
 # data for testing make node info function:
 
 # data for testing define_type, make_flat_node functions:
@@ -25,7 +24,10 @@ make_node_info_data = [
     ),
     (
         "b",
-        {"value": ["string", None], "state": "modified",},
+        {
+            "value": ["string", None],
+            "state": "modified",
+        },
     ),
     (
         "c",
@@ -101,77 +103,76 @@ nested_diff = {
         "value": {
             "follow": {
                 "state": "added",
-                "value": [False, ]
+                "value": [
+                    False,
+                ],
             },
             "setting1": {
                 "state": "same",
-                "value": ["Value 1", ]
+                "value": [
+                    "Value 1",
+                ],
             },
             "setting2": {
                 "state": "removed",
-                "value": [200, ]
+                "value": [
+                    200,
+                ],
             },
-            "setting3": {
-                "state": "modified",
-                "value": [True, None]
-            },
+            "setting3": {"state": "modified", "value": [True, None]},
             "setting4": {
                 "state": "added",
-                "value": ["blah blah", ]
+                "value": [
+                    "blah blah",
+                ],
             },
             "setting5": {
                 "state": "added",
-                "value": [{"key5": "value5"}, ]
+                "value": [
+                    {"key5": "value5"},
+                ],
             },
             "setting6": {
                 "state": "nested",
                 "value": {
                     "key": {
                         "state": "same",
-                        "value": ["value", ]
+                        "value": [
+                            "value",
+                        ],
                     },
                     "ops": {
                         "state": "added",
-                        "value": ["vops", ]
+                        "value": [
+                            "vops",
+                        ],
                     },
                     "doge": {
                         "state": "nested",
                         "value": {
-                            "wow": {
-                                "state": "modified",
-                                "value": ["", "so much"]
-                            },
+                            "wow": {"state": "modified", "value": ["", "so much"]},
                         },
                     },
                 },
             },
-
-
-        }
+        },
     },
     "group1": {
         "state": "nested",
         "value": {
-            "baz": {
-                "state": "modified",
-                "value": ["bas", "bars"]
-            },
+            "baz": {"state": "modified", "value": ["bas", "bars"]},
             "foo": {
                 "state": "same",
-                "value": ["bar", ]
+                "value": [
+                    "bar",
+                ],
             },
-            "nest": {
-                "state": "modified",
-                "value": [{"key": "value"}, "str"]
-            },
+            "nest": {"state": "modified", "value": [{"key": "value"}, "str"]},
         },
     },
-    "group2": {
-        "state": "removed",
-        "value": [{"abc": 12345, "deep": {"id": 45}}]
-    },
-    "group3":{
+    "group2": {"state": "removed", "value": [{"abc": 12345, "deep": {"id": 45}}]},
+    "group3": {
         "state": "added",
-        "value": [{"deep": {"id": {"number": 45}}, "fee": 100500}]
-    }
+        "value": [{"deep": {"id": {"number": 45}}, "fee": 100500}],
+    },
 }

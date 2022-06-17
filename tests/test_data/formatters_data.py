@@ -12,4 +12,3 @@ result_file_jsonish = "tests/fixtures/jsonish.txt"
 f = open(result_file_jsonish, "r")
 result_str_jsonish = f.read()
 f.close()
-
