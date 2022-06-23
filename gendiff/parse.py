@@ -1,24 +1,18 @@
-"""Decode json, yaml, yml files to python dicttionaries"""
+"""Module for parsing data from file."""
 
 
-import os
 import json
 import yaml
 
 
-def get_format(filename):
-    """Return extension of file."""
-    return os.path.splitext(filename)[1]
-
-
-def read_file(filename):
-    """Return data from file."""
-    with open(filename) as f:
-        return f.read()
-
-
-def parse(data, format):
-    """Return dict from json, yaml files."""
+def parse(data: str, format: str):
+    """Return dict from json, yaml, yml files.
+    Parameters:
+        data(str): text from file
+        format(str): extension of a file
+    Return:
+        dict type object
+    """
     file_types = {
         ".json": json.loads,
         ".yaml": yaml.safe_load,

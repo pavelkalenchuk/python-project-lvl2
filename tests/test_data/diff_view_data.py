@@ -1,9 +1,7 @@
 """Input data for testing diff_view.py."""
 
 
-# data for testing make node info function:
-
-# data for testing define_type, make_flat_node functions:
+# data for test_diff_view.py:
 dict1 = {"a": True, "b": "string", "c": 100}
 
 dict2 = {"a": True, "b": None, "d": {"a": 1}}

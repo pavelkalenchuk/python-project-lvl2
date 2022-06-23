@@ -1,18 +1,31 @@
-"""Module present diff in plain format"""
+"""Module constist 3 functions for  presenting diff tree in a plain format."""
 
 from gendiff.formatters.replaser import replace_bool_none_to_str
 
 
-def replace_value(value, type_name):
-    """Return replaced boolean,None type, dict value to str type."""
+def replace_value(value, type_name: str):
+    """Return replaced boolean,None type, dict value to str type.
+    Parameters:
+        value(Any): value for replacing
+        type_name(str): type of a value
+    Return:
+        replced value(str)
+    """
     if type_name == "bool" or type_name == "NoneType":
         return replace_bool_none_to_str(value)
     replaced_value = {"dict": "[complex value]", "str": f"'{value}'"}
     return replaced_value.get(type_name, value)
 
 
-def make_string(key, key_description, keys):
-    """Return string with property name and state of the property."""
+def make_string(key: str, key_description: dict, keys: list):
+    """Return string with property name and state and value(s) of the property.
+    Parameters:
+        key(str): a property name
+        key_description(dict): description of a property
+        keys(list): key path(for nested dicts) to key
+    Return:
+        string with  property name and state and value(s) of the property
+    """
     copy_keys = keys.copy()
     copy_keys.append(key)
     key_path = ".".join(copy_keys)
@@ -34,8 +47,15 @@ def make_string(key, key_description, keys):
     return string[state]
 
 
-def format(diff):
-    """Return string in plain format."""
+def format(diff: dict):
+    """Return string with a sorted keys witn information of a state
+       and value(s) of a key in plain format.
+    Parameters:
+        diff(dict): diff tree
+    Return:
+        string with a sorted keys witn information of a state
+        and value(s) of a key in plain format
+    """
 
     def walk(current_diff, keys):
         all_keys = set(current_diff.keys())

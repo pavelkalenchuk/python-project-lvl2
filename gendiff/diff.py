@@ -5,11 +5,20 @@ import gendiff.formatters.plain
 import gendiff.formatters.jsonish
 
 from gendiff.diff_view import make_diff_view
-from gendiff.parse import parse, get_format, read_file
+from gendiff.parse import parse
+from gendiff.read_file import get_format, read_file
 
 
-def generate_diff(file_path1, file_path2, format_name="stylish"):
-    """Return diff str depending on the formatter."""
+def generate_diff(file_path1: str, file_path2: str, format_name="stylish"):
+    """Return diff str depending on the formatter.
+    Parameters:
+        file_path1(str): path to first file
+        file_path2(str): path to second file
+        format_name(str): name of a formatter
+    Returns:
+        string(str) with a differnse between 2 configuration file(json, yaml, yml),
+        fomatted by on of a three formatters
+    """
     formatters = {
         "stylish": gendiff.formatters.stylish.format,
         "plain": gendiff.formatters.plain.format,

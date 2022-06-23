@@ -7,6 +7,7 @@ from gendiff.cli import parse_args
 
 
 def main():
+    """Main entry point of the 'gendiff' app."""
     first_file, second_file, format_name = parse_args()
     print(generate_diff(first_file, second_file, format_name))
 

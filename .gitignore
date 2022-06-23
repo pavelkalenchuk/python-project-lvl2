@@ -2,13 +2,7 @@
 __pycache__
 *.pyc
 dist/
-err
 .vscode/
-temp.py
-test_.py
-temp_junk
 .coverage
 coverage.xml
 trash/
-resultation
-lint_err

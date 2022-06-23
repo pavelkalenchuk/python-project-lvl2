@@ -5,8 +5,14 @@ from itertools import chain
 from gendiff.formatters.replaser import replace_bool_none_to_str
 
 
-def stringify(value, key_indent):
-    """Return string with indent strigified from a dict."""
+def stringify(value: dict, key_indent: int):
+    """Return string with indent strigified from a dict.
+    Parameters:
+        value(dict): dict type object
+        key_indent(int): quantity of a spaces for indent of a first string
+    Return:
+        string
+    """
     len_indent = len(key_indent)
     start_indent = len_indent + 6
 
@@ -30,8 +36,15 @@ def stringify(value, key_indent):
     return iter_(value, 0)
 
 
-def replace_value(value, type_name, indent):
-    """Return replaced value."""
+def replace_value(value, type_name: str, indent: int):
+    """Return replaced value.
+    Parameters:
+        value(Any): value for replacing
+        type_name(str): type of a value
+        indent(int): quantity of a spaces for indent in stringify func
+    Return:
+        string replaced value
+    """
     if type_name == "dict":
         return stringify(value, indent)
     if type_name == "bool" or type_name == "NoneType":
@@ -39,8 +52,15 @@ def replace_value(value, type_name, indent):
     return value
 
 
-def make_string(key, key_description, indent):
-    """Return string with property name and state of the property."""
+def make_string(key: str, key_description: dict, indent: int):
+    """Return string with property name and state of the property.
+    Parameters:
+        key(str): a property name
+        key_description(dict): description of a property
+        indend(int):  quantity of a spaces for indent
+    Return:
+        string with property name and state of the property
+    """
     value = key_description["value"]
     state = key_description["state"]
     type_name = [type(v).__name__ for v in value]
@@ -66,7 +86,14 @@ def make_string(key, key_description, indent):
 
 
 def format(diff):
-    """Return string in stylish format."""
+    """Return string with a sorted keys witn information of a state
+       and value(s) of a key in stylish format.
+    Parameters:
+        diff(dict): diff tree
+    Return:
+        string with a sorted keys witn information of a state
+        and value(s) of a key in plain format
+    """
 
     def walk(diff, depth):
         all_keys = set(diff.keys())
