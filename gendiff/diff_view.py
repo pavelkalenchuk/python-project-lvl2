@@ -16,11 +16,10 @@ def is_both_values_dicts(value1, value2):
     """Check if values are a dict type.
     Parameters:
         value1(Any): first value
-        vale2(Any): second value
+        value2(Any): second value
     Returns:
         True: both values are dict type
         False: one of values is not a dict type
-
     """
     if isinstance(value1, dict) and isinstance(value2, dict):
         return True
@@ -43,7 +42,7 @@ def make_node_info(dict1: dict, dict2: dict, key: str, shared_keys: set):
     removed = set(dict1) - set(dict2)
     modified = set(
         k for k in shared_keys if dict1[k] != dict2[k]
-    )  # same keys diffent values
+    )  # same keys different values
     same = set(k for k in shared_keys if dict1[k] == dict2[k])  # same keys equal values
     states = {"added": added, "removed": removed, "modified": modified, "same": same}
     for k in states:
@@ -66,12 +65,12 @@ def make_node_info(dict1: dict, dict2: dict, key: str, shared_keys: set):
 def make_diff_view(dict1: dict, dict2: dict):
     """
     Return a tree(dict type) where every node is key with a dict type value,
-    value is a key descriotion about a state of a key in a both dicts.
+    value is a key description about a state of a key in a both dicts.
     Parameters:
         dict1(dict): first dict
         dict2(dict): second dict
     Returns:
-        diff tree(dict): tree with a nodes are keys form both dict, with a key descriprion
+        diff tree(dict): tree with a nodes are keys form both dict, with a key description
     """
     all_keys = set(dict1) | set(dict2)
     shared_keys = set(dict1) & set(dict2)

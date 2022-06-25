@@ -2,9 +2,9 @@
 [![Actions Status](https://github.com/pavelkalenchuk/python-project-lvl2/workflows/hexlet-check/badge.svg)](https://github.com/pavelkalenchuk/python-project-lvl2/actions)  [![Python CI](https://github.com/pavelkalenchuk/python-project-lvl2/actions/workflows/Test.yml/badge.svg)](https://github.com/pavelkalenchuk/python-project-lvl2/actions/workflows/Test.yml)  [![Maintainability](https://api.codeclimate.com/v1/badges/501f31bcfd20c55cdb47/maintainability)](https://codeclimate.com/github/pavelkalenchuk/python-project-lvl2/maintainability)  [![Test Coverage](https://api.codeclimate.com/v1/badges/501f31bcfd20c55cdb47/test_coverage)](https://codeclimate.com/github/pavelkalenchuk/python-project-lvl2/test_coverage)
 
 ### Description
-Python package "hexlet-code"(gendiff) is a CLI tool that povides the ability to compare two comfigaration files.
-With  CLI command 'gendiff' user get a differense between two configuration (JSON, YAML) files.
-Result of a compare show a properties from a files and inform about value(s) of prorerty, and  state of every prorerties:
+Python package "hexlet-code"(gendiff) is a CLI tool that provides the ability to compare two configuration files.
+With  CLI command 'gendiff' user get a difference between two configuration (JSON, YAML) files.
+Result of a compare show a properties from a files and inform about value(s) of property, and  state of every property:
  - property was added
  - property was removed
  - property was not changed, values are equal for both files

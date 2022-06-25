@@ -1,4 +1,4 @@
-"""Module constist 3 functions for  presenting diff tree in a plain format."""
+"""Module consist 3 functions for presenting diff tree in a plain format."""
 
 from gendiff.formatters.replaser import replace_bool_none_to_str
 
@@ -7,9 +7,9 @@ def replace_value(value, type_name: str):
     """Return replaced boolean,None type, dict value to str type.
     Parameters:
         value(Any): value for replacing
-        type_name(str): type of a value
+        type_name(str): type of value
     Return:
-        replced value(str)
+        replaced value(str)
     """
     if type_name == "bool" or type_name == "NoneType":
         return replace_bool_none_to_str(value)
@@ -48,12 +48,12 @@ def make_string(key: str, key_description: dict, keys: list):
 
 
 def format(diff: dict):
-    """Return string with a sorted keys witn information of a state
+    """Return string with a sorted keys with information of a state
        and value(s) of a key in plain format.
     Parameters:
         diff(dict): diff tree
     Return:
-        string with a sorted keys witn information of a state
+        string with a sorted keys with information of a state
         and value(s) of a key in plain format
     """
 

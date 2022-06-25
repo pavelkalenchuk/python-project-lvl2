@@ -9,6 +9,7 @@ from gendiff.parse import parse
 from gendiff.read_file import get_format, read_file
 
 
+# noinspection SpellCheckingInspection
 def generate_diff(file_path1: str, file_path2: str, format_name="stylish"):
     """Return diff str depending on the formatter.
     Parameters:
@@ -17,7 +18,7 @@ def generate_diff(file_path1: str, file_path2: str, format_name="stylish"):
         format_name(str): name of a formatter
     Returns:
         string(str) with a differnse between 2 configuration file(json, yaml, yml),
-        fomatted by on of a three formatters
+        formatted by one of three formatters
     """
     formatters = {
         "stylish": gendiff.formatters.stylish.format,

@@ -4,8 +4,8 @@ import json
 
 
 def format(diff: dict):
-    """Return string in JSON fromat.
-    Paramater:
+    """Return string in JSON format.
+    Parameter:
         diff(dict): diff tree
     Return:
         JSON formatted string(str) with sorted keys from diff tree

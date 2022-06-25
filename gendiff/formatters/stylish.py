@@ -57,7 +57,7 @@ def make_string(key: str, key_description: dict, indent: int):
     Parameters:
         key(str): a property name
         key_description(dict): description of a property
-        indend(int):  quantity of a spaces for indent
+        indent(int):  quantity of a spaces for indent
     Return:
         string with property name and state of the property
     """
@@ -86,12 +86,12 @@ def make_string(key: str, key_description: dict, indent: int):
 
 
 def format(diff):
-    """Return string with a sorted keys witn information of a state
+    """Return string with a sorted keys with information of a state
        and value(s) of a key in stylish format.
     Parameters:
         diff(dict): diff tree
     Return:
-        string with a sorted keys witn information of a state
+        string with a sorted keys with information of a state
         and value(s) of a key in plain format
     """
 
