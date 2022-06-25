@@ -31,7 +31,7 @@ Project was created with next tools:
 | [black](https://black.readthedocs.io/en/stable/#)                           | "The Uncompromising Code Formatter"                     |
 
 ### Installation
-#### with poetry tool and make command:
+#### by poetry tool and make command:
 clone a repository:
 ```sh
 git clone https://github.com/pavelkalenchuk/python-project-lvl2.git
@@ -43,7 +43,7 @@ make build
 ```sh
 make install
 ```
-#### with pip (from test.PyPi):
+#### by pip (from test.PyPi):
 ```sh
 
 ```
