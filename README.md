@@ -30,22 +30,23 @@ Project was created with next tools:
 | [flake8](https://flake8.pycqa.org/en/latest/)                               | "Flake8: Your Tool For Style Guide Enforcement"         |
 | [black](https://black.readthedocs.io/en/stable/#)                           | "The Uncompromising Code Formatter"                     |
 
-### Installation
+### Installation (by poetry tool or pip (from test.PyPi))
 #### by poetry tool and make command:
+install poetry(Linux, macOS, WSL:
+```sh
+curl -sSL https://install.python-poetry.org | python3 -
+```
 clone a repository:
 ```sh
 git clone https://github.com/pavelkalenchuk/python-project-lvl2.git
 ```
 in repository directory type next command:
 ```sh
-make build
-```
-```sh
-make install
+make build && make install
 ```
 #### by pip (from test.PyPi):
 ```sh
-
+pip install --user  -i https://test.pypi.org/simple/ gendiff-pakchuk --extra-index-url https://pypi.org/simple
 ```
 
 

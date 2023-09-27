@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "hexlet-code"
-version = "0.3.0"
-description = ""
+version = "0.3.1"
+description = "CLI tool that provides the ability to compare two configuration files (json, yaml). Supported nested structures in files."
 authors = ["Pavel Kalenchuk <pavel.kalenchuk@gmail.com>"]
 packages = [
     {include = "gendiff"},
